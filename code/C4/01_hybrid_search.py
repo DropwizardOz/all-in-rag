@@ -160,6 +160,8 @@ dense_results = collection.search(
     output_fields=["title", "path", "description", "category", "location", "environment"]
 )[0]
 
+print(f"\n--- [单独] 密集向量搜索结果len: ---{len(dense_results)}")
+
 for i, hit in enumerate(dense_results):
     print(f"{i+1}. {hit.entity.get('title')} (Score: {hit.distance:.4f})")
     print(f"    路径: {hit.entity.get('path')}")
@@ -174,6 +176,8 @@ sparse_results = collection.search(
     expr=search_filter,
     output_fields=["title", "path", "description", "category", "location", "environment"]
 )[0]
+
+print(f"\n--- [单独] 稀疏向量搜索结果: ---{len(sparse_results)}")
 
 for i, hit in enumerate(sparse_results):
     print(f"{i+1}. {hit.entity.get('title')} (Score: {hit.distance:.4f})")
