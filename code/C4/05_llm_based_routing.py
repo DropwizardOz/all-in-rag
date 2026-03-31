@@ -1,15 +1,33 @@
 import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_deepseek import ChatDeepSeek
+# from langchain_deepseek import ChatDeepSeek
+from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnableBranch
-
-llm = ChatDeepSeek(
-    model="deepseek-chat", 
-    temperature=0, 
-    api_key=os.getenv("DEEPSEEK_API_KEY")
-    )
-
+from dotenv import load_dotenv
+load_dotenv()
+# llm = ChatDeepSeek(
+#     model="deepseek-chat", 
+#     temperature=0, 
+#     api_key=os.getenv("DEEPSEEK_API_KEY")
+#     )
+# llm = ChatOpenAI(
+#     # model="glm-4.7-flash-free",
+#     model="gpt-4.1-free",
+#     temperature=0,
+#     max_tokens=4096,
+#     api_key=os.getenv("AIHUBMIX_API_KEY"),
+#     base_url="https://aihubmix.com/v1"
+# )
+llm = ChatOpenAI(
+    # model="glm-4.7-flash-free",
+    # model="MiniMax-M2.5",
+    model="Qwen3-30B-A3B",
+    temperature=0,
+    max_tokens=4096,
+    api_key=os.getenv("CSNET_API_KEY"),
+    base_url="https://api.scnet.cn/api/llm/v1"
+)
 # 1. 设置不同菜系的处理链
 sichuan_prompt = ChatPromptTemplate.from_template(
     "你是一位川菜大厨。请用正宗的川菜做法，回答关于「{question}」的问题。"
