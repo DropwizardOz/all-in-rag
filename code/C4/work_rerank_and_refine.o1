@@ -1,0 +1,54 @@
+(all-in-rag) ubuntu@1b7736e6f6d6:/workspace/code/C4$ python work_rerank_and_refine.py 
+/workspace/code/C4/work_rerank_and_refine.py:134: LangChainDeprecationWarning: The class `HuggingFaceBgeEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the :class:`~langchain-huggingface package and should be used instead. To use it run `pip install -U :class:`~langchain-huggingface` and import as `from :class:`~langchain_huggingface import HuggingFaceEmbeddings``.
+  hf_bge_embeddings = HuggingFaceBgeEmbeddings(
+ColBERT模型加载完成
+
+==================== 开始执行查询 ====================
+查询: AI还有哪些缺陷需要克服？
+
+--- (1) 基础检索结果 (Top 20) ---
+/workspace/code/C4/work_rerank_and_refine.py:193: LangChainDeprecationWarning: The method `BaseRetriever.get_relevant_documents` was deprecated in langchain-core 0.1.46 and will be removed in 1.0. Use :meth:`~invoke` instead.
+  base_results = base_retriever.get_relevant_documents(query)
+  [1] 一个比较明显的问题是，AI生成内容虽然已非常流畅，但提供的信息很多时候还是不准确。5月，日本研究人员在德国《先进科学》杂志发表的一项研究成果中指出，这一问题与人类的语言障碍——失语症类似。
+
+    ...
+
+  [2] 行业巨头谷歌公司也没闲着。该公司在5月推出整体性能和智能推理能力均较以往版本大幅提升的多个“双子座2.5”系列模型，并发布了多个多模态模型，如图像生成模型Imagen 4和视频生成模型Veo 3，具备...
+
+  [3] 营造更合理的AI创新环境
+
+    国际劳工组织5月20日发布一份有关生成式AI与就业的报告表示，全球四分之一的工作岗位可能受到生成式AI影响。不过报告也指出，在劳动领域，生成式AI本身并无好坏之分，...
+
+  [4] 5月，全球多家科技公司发布新的大模型，它们在语义理解、多模态等方面进一步提升，人工智能（AI）的能力边界在不断扩大。随着无人驾驶、机器人等技术借助AI快速进化并逐步投入市场，不少国家通过推进法规建设、...
+
+  [5] 一些国家已在积极尝试通过优化政策、法规来营造更好的AI创新环境。日本参议院全体会议5月28日以多数赞成票通过该国首部专门针对AI的法律，旨在促进AI相关技术研发和应用并防止其滥用。依据这部《人工智能相...
+
+  [6] 业界也确实在努力从不同角度去寻求优化大模型的解决方案。中国科学院自动化研究所联合鹏城实验室提出了一种高效推理策略AutoThink，可让大模型实现自主切换思考模式，避免“过度思考”。
+
+    据研究...
+
+  [7] 国际合作同样重要。“2025中国—上海合作组织人工智能合作论坛”5月29日在天津召开。论坛发布《中国—上合组织国家人工智能应用合作中心建设方案》，邀请上合组织成员国共建人工智能应用合作中心，围绕夯实人...
+
+  [8] 大模型更趋实用化
+
+    5月下旬，中国深度求索（DeepSeek）公司表示，DeepSeek R1模型已完成小版本升级，当前版本为DeepSeek-R1-0528，模型的思维深度与推理能力显著提升...
+
+  [9] 同样在5月，美国Anthropic公司推出“克劳德4”系列两款新模型：“奥普斯4”（Opus 4）与“十四行诗4”（Sonnet 4），旨在为业界提供更高标准的编程、推理和智能体应用。Opus 4是行...
+
+
+--- (2) 管道压缩后结果 (ColBERT重排 + LLM压缩) ---
+  [1] 一个比较明显的问题是，AI生成内容虽然已非常流畅，但提供的信息很多时候还是不准确。5月，日本研究人员在德国《先进科学》杂志发表的一项研究成果中指出，这一问题与人类的语言障碍——失语症类似。
+
+    据研究人员介绍，大模型在出现严重错误时仍表达流畅，这与感觉性失语症的症状有相似之处，即说话流利却总说不出什么意思。这并不意味着AI聊天机器人有“脑损伤”，但它们可能被锁定在一种僵化的内部模式中，限制其灵活运用所储存知识，就像患了感觉性失语症。未来研究人员可以针对相关问题，找到改善措施。
+
+  [2] 中国科学院自动化研究所联合鹏城实验室提出了一种高效推理策略AutoThink，可让大模型实现自主切换思考模式，避免“过度思考”。
+
+    据研究人员介绍，AutoThink提供了一种简单而有效的推理新范式——通过省略号提示配合三阶段强化学习，引导大模型不再“逢题必深思熟虑”，而是根据问题难度自主决定“是否思考”“思考多少”。在多个数学数据集上，AutoThink实现了准确率与效率平衡，既提升性能又节省算力，展示出较强的适应性和实用性。
+
+
+==================== 性能统计 ====================
+基础检索耗时: 0.419 秒
+管道压缩耗时: 47.002 秒
+总耗时: 47.421 秒
+管道占比: 99.1%
+加速比: 113.14x

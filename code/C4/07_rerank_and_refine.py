@@ -1,11 +1,12 @@
 import os
+import time
 from langchain_community.vectorstores import FAISS
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
-from langchain_deepseek import ChatDeepSeek
+# from langchain_deepseek import ChatDeepSeek
 
 # 导入ColBERT重排器需要的模块
 from langchain.retrievers.document_compressors.base import BaseDocumentCompressor
@@ -134,12 +135,18 @@ hf_bge_embeddings = HuggingFaceBgeEmbeddings(
     model_name="BAAI/bge-large-zh-v1.5"
 )
 
-llm = ChatDeepSeek(
-    model="deepseek-chat", 
-    temperature=0.1, 
-    api_key=os.getenv("DEEPSEEK_API_KEY")
+# llm = ChatDeepSeek(
+#     model="deepseek-chat", 
+#     temperature=0.1, 
+#     api_key=os.getenv("DEEPSEEK_API_KEY")
+# )
+from langchain_openai import ChatOpenAI
+llm = ChatOpenAI(
+    model="deepseek-ai/DeepSeek-V3",
+    temperature=0.1,
+    api_key=os.getenv("SILICON_FLOW_API_KEY"),
+    base_url="https://api.siliconflow.cn/v1"
 )
-
 # 1. 加载和处理文档
 loader = TextLoader("../../data/C4/txt/ai.txt", encoding="utf-8")
 documents = loader.load()
@@ -173,14 +180,33 @@ query = "AI还有哪些缺陷需要克服？"
 print(f"\n{'='*20} 开始执行查询 {'='*20}")
 print(f"查询: {query}\n")
 
+total_start_time = time.time()
+
 # 7.1 基础检索结果
 print(f"--- (1) 基础检索结果 (Top 20) ---")
+base_start = time.time()
 base_results = base_retriever.get_relevant_documents(query)
+base_time = time.time() - base_start
+print(f"  基础检索耗时: {base_time:.3f}秒\n")
+
 for i, doc in enumerate(base_results):
     print(f"  [{i+1}] {doc.page_content[:100]}...\n")
 
 # 7.2 使用管道压缩器的最终结果
 print(f"\n--- (2) 管道压缩后结果 (ColBERT重排 + LLM压缩) ---")
+final_start = time.time()
 final_results = final_retriever.get_relevant_documents(query)
+final_time = time.time() - final_start
+print(f"  管道压缩耗时: {final_time:.3f}秒\n")
+
 for i, doc in enumerate(final_results):
     print(f"  [{i+1}] {doc.page_content}\n")
+
+# 统计总时间
+total_time = time.time() - total_start_time
+print(f"\n{'='*60}")
+print(f"总执行时间: {total_time:.3f}秒")
+print(f"  - 基础检索: {base_time:.3f}秒 ({base_time/total_time*100:.1f}%)")
+print(f"  - ColBERT重排+LLM压缩: {final_time:.3f}秒 ({final_time/total_time*100:.1f}%)")
+print(f"  - 加速比: {final_time/base_time:.2f}x")
+print(f"{'='*60}")

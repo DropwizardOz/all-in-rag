@@ -1,4 +1,5 @@
 import os
+import time
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 # from langchain_deepseek import ChatDeepSeek
@@ -22,11 +23,11 @@ load_dotenv()
 llm = ChatOpenAI(
     # model="glm-4.7-flash-free",
     # model="MiniMax-M2.5",
-    model="Qwen3-30B-A3B",
+    model="deepseek-ai/DeepSeek-V3",
     temperature=0,
     max_tokens=4096,
-    api_key=os.getenv("CSNET_API_KEY"),
-    base_url="https://api.scnet.cn/api/llm/v1"
+    api_key=os.getenv("SILICON_FLOW_API_KEY"),
+    base_url="https://api.siliconflow.cn/v1"
 )
 # 1. 设置不同菜系的处理链
 sichuan_prompt = ChatPromptTemplate.from_template(
@@ -73,18 +74,47 @@ demo_questions = [
     {"question": "番茄炒蛋需要放糖吗？"}      # 应该路由到其他
 ]
 
+total_start_time = time.time()
+
 for i, item in enumerate(demo_questions, 1):
     question = item["question"]
     print(f"\n--- 问题 {i}: {question} ---")
-    
+    question_start = time.time()
+
     try:
         # 获取路由决策
+        print("  - 分类器调用中...")
+        classifier_start = time.time()
         topic = classifier_chain.invoke({"question": question})
-        print(f"路由决策: {topic}")
+        classifier_time = time.time() - classifier_start
+        print(f"路由决策: {topic} (耗时: {classifier_time:.2f}秒)")
 
-        # 执行完整链
-        result = full_router_chain.invoke(item)
-        print(f"回答: {result}")
+        # 执行完整链 - 使用流式输出
+        print("  - 生成回答中(流式输出)...")
+        print("  回答: ", end="", flush=True)
+        answer_start = time.time()
+        
+        # result = full_router_chain.invoke(item)
+        # 方式1: 使用 .stream() 获取流式输出
+        stream = full_router_chain.stream(item)
+        result = ""
+        for chunk in stream:
+            print(chunk, end="", flush=True)
+            result += chunk
+
+        answer_time = time.time() - answer_start
+        print()  # 换行
+        print(f"  回答生成耗时: {answer_time:.2f}秒")
+        # print(f"完整回答: {result}")  # 如需查看完整回答可取消注释
     except Exception as e:
         print(f"执行错误: {e}")
+
+    question_time = time.time() - question_start
+    print(f"问题总耗时: {question_time:.2f}秒")
+
+total_time = time.time() - total_start_time
+print(f"\n{'='*60}")
+print(f"总执行时间: {total_time:.2f}秒 ({total_time/60:.2f}分钟)")
+print(f"平均每个问题: {total_time/len(demo_questions):.2f}秒")
+print(f"{'='*60}")
 

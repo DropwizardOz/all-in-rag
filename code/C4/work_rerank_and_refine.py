@@ -6,6 +6,7 @@ from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 from langchain_deepseek import ChatDeepSeek
+import time
 
 # 导入ColBERT重排器需要的模块
 from langchain.retrievers.document_compressors.base import BaseDocumentCompressor
@@ -134,12 +135,18 @@ hf_bge_embeddings = HuggingFaceBgeEmbeddings(
     model_name="BAAI/bge-large-zh-v1.5"
 )
 
-llm = ChatDeepSeek(
-    model="deepseek-chat", 
-    temperature=0.1, 
-    api_key=os.getenv("DEEPSEEK_API_KEY")
+# llm = ChatDeepSeek(
+#     model="deepseek-chat", 
+#     temperature=0.1, 
+#     api_key=os.getenv("DEEPSEEK_API_KEY")
+# )
+from langchain_openai import ChatOpenAI
+llm = ChatOpenAI(
+    model="deepseek-ai/DeepSeek-V3",
+    temperature=0.1,
+    api_key=os.getenv("SILICON_FLOW_API_KEY"),
+    base_url="https://api.siliconflow.cn/v1"
 )
-
 # 1. 加载和处理文档
 loader = TextLoader("../../data/C4/txt/ai.txt", encoding="utf-8")
 documents = loader.load()
@@ -182,12 +189,24 @@ print(f"查询: {query}\n")
 
 # 7.1 基础检索结果
 print(f"--- (1) 基础检索结果 (Top 20) ---")
+base_start = time.time()
 base_results = base_retriever.get_relevant_documents(query)
+base_time = time.time() - base_start
 for i, doc in enumerate(base_results):
     print(f"  [{i+1}] {doc.page_content[:100]}...\n")
 
 # 7.2 使用管道压缩器的最终结果
 print(f"\n--- (2) 管道压缩后结果 (ColBERT重排 + LLM压缩) ---")
+pipeline_start = time.time()
 final_results = final_retriever.get_relevant_documents(query)
+pipeline_time = time.time() - pipeline_start
 for i, doc in enumerate(final_results):
     print(f"  [{i+1}] {doc.page_content}\n")
+
+# 性能统计
+print(f"\n{'='*20} 性能统计 {'='*20}")
+print(f"基础检索耗时: {base_time:.3f} 秒")
+print(f"管道压缩耗时: {pipeline_time:.3f} 秒")
+print(f"总耗时: {base_time + pipeline_time:.3f} 秒")
+print(f"管道占比: {pipeline_time / (base_time + pipeline_time) * 100:.1f}%")
+print(f"加速比: {(base_time + pipeline_time) / base_time:.2f}x")
