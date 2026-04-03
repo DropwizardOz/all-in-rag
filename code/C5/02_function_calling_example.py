@@ -2,15 +2,21 @@ from openai import OpenAI
 import os
 
 # 初始化 OpenAI 客户端
+# client = OpenAI(
+#     api_key=os.getenv("DEEPSEEK_API_KEY"),
+#     base_url="https://api.deepseek.com",
+# )
+# from langchain_openai import ChatOpenAI
 client = OpenAI(
-    api_key=os.getenv("DEEPSEEK_API_KEY"),
-    base_url="https://api.deepseek.com",
+    # model="deepseek-chat", 这里没有参数model
+    api_key=os.getenv("SILICON_FLOW_API_KEY"),
+    base_url="https://api.siliconflow.cn/v1"
 )
-
 # 定义一个函数，用于发送消息并获取模型的响应
 def send_messages(messages, tools=None):
     response = client.chat.completions.create(
-        model="deepseek-chat",
+        # model="deepseek-chat",
+        model="deepseek-ai/DeepSeek-V3", # 在create时候指定
         messages=messages,
         tools=tools,
         tool_choice="auto",  # 让模型自主决定是否调用工具

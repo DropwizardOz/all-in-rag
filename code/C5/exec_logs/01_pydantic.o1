@@ -1,0 +1,9 @@
+
+--- 解析结果 ---
+结果类型: <class '__main__.PersonInfo'>
+name='张三' age=30 skills=['Python', 'Go']
+--------------------
+
+姓名: 张三
+年龄: 30
+技能: ['Python', 'Go']

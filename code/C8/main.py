@@ -51,8 +51,10 @@ class RecipeRAGSystem:
             raise FileNotFoundError(f"数据路径不存在: {self.config.data_path}")
 
         # 检查API密钥
-        if not os.getenv("MOONSHOT_API_KEY"):
-            raise ValueError("请设置 MOONSHOT_API_KEY 环境变量")
+        # if not os.getenv("MOONSHOT_API_KEY"):
+        #     raise ValueError("请设置 MOONSHOT_API_KEY 环境变量")
+        if not os.getenv("SILICON_FLOW_API_KEY"):
+            raise ValueError("请设置 SILICON_FLOW_API_KEY 环境变量")
     
     def initialize_system(self):
         """初始化所有模块"""
@@ -313,6 +315,8 @@ class RecipeRAGSystem:
         print("🍽️  尝尝咸淡RAG系统 - 交互式问答  🍽️")
         print("=" * 60)
         print("💡 解决您的选择困难症，告别'今天吃什么'的世纪难题！")
+        print("\n⚠️  输出过程中按 Ctrl+C 可停止当前回答，继续下一个问题")
+        print("📝 输入 'quit' 或 '退出' 可退出程序")
         
         # 初始化系统
         self.initialize_system()
@@ -320,12 +324,12 @@ class RecipeRAGSystem:
         # 构建知识库
         self.build_knowledge_base()
         
-        print("\n交互式问答 (输入'退出'结束):")
+        print("\n交互式问答 (输入'quit'或'退出'结束):")
         
         while True:
             try:
                 user_input = input("\n您的问题: ").strip()
-                if user_input.lower() in ['退出', 'quit', 'exit', '']:
+                if user_input.lower() in ['退出', 'quit', 'exit']:
                     break
                 
                 # 询问是否使用流式输出
@@ -334,16 +338,24 @@ class RecipeRAGSystem:
 
                 print("\n回答:")
                 if use_stream:
-                    # 流式输出
-                    for chunk in self.ask_question(user_input, stream=True):
-                        print(chunk, end="", flush=True)
-                    print("\n")
+                    # 流式输出 - Ctrl+C 仅停止输出，不退出
+                    try:
+                        for chunk in self.ask_question(user_input, stream=True):
+                            print(chunk, end="", flush=True)
+                        print("\n")
+                    except KeyboardInterrupt:
+                        print("\n\n⏹️  输出已停止，请继续提问")
+                        continue
                 else:
-                    # 普通输出
-                    answer = self.ask_question(user_input, stream=False)
-                    print(f"{answer}\n")
+                    # 普通输出 - Ctrl+C 也仅停止当前操作
+                    try:
+                        answer = self.ask_question(user_input, stream=False)
+                        print(f"{answer}\n")
+                    except KeyboardInterrupt:
+                        print("\n\n⏹️  已停止，请继续提问")
+                        continue
                 
-            except KeyboardInterrupt:
+            except EOFError:
                 break
             except Exception as e:
                 print(f"处理问题时出错: {e}")

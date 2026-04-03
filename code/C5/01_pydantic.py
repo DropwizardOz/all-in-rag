@@ -6,11 +6,16 @@ from langchain_core.output_parsers import PydanticOutputParser
 from langchain_deepseek import ChatDeepSeek
 
 # 初始化 LLM
-llm = ChatDeepSeek(
-    model="deepseek-chat",
-    api_key=os.getenv("DEEPSEEK_API_KEY")
+# llm = ChatDeepSeek(
+#     model="deepseek-chat",
+#     api_key=os.getenv("DEEPSEEK_API_KEY")
+# )
+from langchain_openai import ChatOpenAI
+llm = ChatOpenAI(
+    model="deepseek-ai/DeepSeek-V3",
+    api_key=os.getenv("SILICON_FLOW_API_KEY"),
+    base_url="https://api.siliconflow.cn/v1"
 )
-
 # 1. 定义数据结构
 class PersonInfo(BaseModel):
     name: str = Field(description="人物姓名")

@@ -1,0 +1,200 @@
+/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/pydantic/_internal/_generate_schema.py:2249: UnsupportedFieldAttributeWarning: The 'validate_default' attribute with value True was provided to the `Field()` function, which has no effect in the context it was used. 'validate_default' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.
+  warnings.warn(
+modules.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████| 349/349 [00:00<00:00, 4.95MB/s]
+config_sentence_transformers.json: 100%|████████████████████████████████████████████████████████████████████| 124/124 [00:00<00:00, 1.11MB/s]
+README.md: 90.8kB [00:00, 3.29MB/s]
+sentence_bert_config.json: 100%|███████████████████████████████████████████████████████████████████████████| 52.0/52.0 [00:00<00:00, 765kB/s]
+config.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 684/684 [00:00<00:00, 6.93MB/s]
+model.safetensors: 100%|██████████████████████████████████████████████████████████████████████████████████| 133M/133M [00:05<00:00, 25.6MB/s]
+tokenizer_config.json: 100%|████████████████████████████████████████████████████████████████████████████████| 366/366 [00:00<00:00, 7.01MB/s]
+vocab.txt: 232kB [00:00, 4.05MB/s]
+tokenizer.json: 711kB [00:00, 20.8MB/s]
+special_tokens_map.json: 100%|██████████████████████████████████████████████████████████████████████████████| 125/125 [00:00<00:00, 2.37MB/s]
+config.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 190/190 [00:00<00:00, 3.74MB/s]
+/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/evaluation/dataset_generation.py:110: DeprecationWarning: Call to deprecated class QueryResponseDataset. (Deprecated in favor of `LabelledRagDataset` which should be used instead.)
+  return cls(**data)
+加载响应评估数据集...
+
+
+=================
+
+/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/pydantic/_internal/_generate_schema.py:2249: UnsupportedFieldAttributeWarning: The 'validate_default' attribute with value True was provided to the `Field()` function, which has no effect in the context it was used. 'validate_default' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.
+  warnings.warn(
+✓ 模型初始化完成
+
+==================== 开始执行 ====================
+加载文档中...
+✓ 加载了 172 个文档 (25.1秒)
+加载响应评估数据集...
+/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/evaluation/dataset_generation.py:110: DeprecationWarning: Call to deprecated class QueryResponseDataset. (Deprecated in favor of `LabelledRagDataset` which should be used instead.)
+  return cls(**data)
+
+构建句子窗口检索...
+✓ 生成了 11276 个句子节点
+Parsing nodes: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 172/172 [00:00<00:00, 333.45it/s]
+Generating embeddings: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 2048/2048 [02:21<00:00, 14.50it/s]
+Generating embeddings: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 2048/2048 [01:28<00:00, 23.23it/s]
+Generating embeddings: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 2048/2048 [01:16<00:00, 26.64it/s]
+Generating embeddings: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 2048/2048 [01:13<00:00, 27.98it/s]
+Generating embeddings: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 2048/2048 [01:12<00:00, 28.29it/s]
+Generating embeddings: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 1036/1036 [00:36<00:00, 28.40it/s]
+✓ 句子窗口索引构建完成 (491.7秒)
+
+构建常规分块检索...
+✓ 生成了 1100 个分块节点
+Parsing nodes: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 172/172 [00:00<00:00, 522.47it/s]
+Generating embeddings: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 1100/1100 [03:40<00:00,  4.98it/s]
+✓ 常规分块索引构建完成 (221.5秒)
+开始执行响应评估对比...
+
+=== 评估句子窗口检索 ===
+  0%|                                                                                                                                            | 0/15 [00:09<?, ?it/s]
+Traceback (most recent call last):
+  File "/workspace/code/C6/01_llamaindex_evaluation_example.py", line 158, in <module>
+    asyncio.run(main())
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/code/C6/01_llamaindex_evaluation_example.py", line 94, in main
+    sentence_response_results = await sentence_runner.aevaluate_queries(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/evaluation/batch_runner.py", line 342, in aevaluate_queries
+    responses = await self.asyncio_mod.gather(*response_jobs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tqdm/asyncio.py", line 79, in gather
+    res = [await f for f in cls.as_completed(ifs, loop=loop, timeout=timeout,
+           ^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/asyncio/tasks.py", line 631, in _wait_for_one
+    return f.result()  # May raise f.exception().
+           ^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tqdm/asyncio.py", line 76, in wrap_awaitable
+    return i, await f
+              ^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 193, in async_wrapped
+    return await copy(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 112, in __call__
+    do = await self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 157, in iter
+    result = await action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/_utils.py", line 111, in inner
+    return call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 116, in __call__
+    result = await fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/evaluation/batch_runner.py", line 72, in response_worker
+    return await query_engine.aquery(query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/base/base_query_engine.py", line 64, in aquery
+    query_result = await self._aquery(str_or_query_bundle)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/query_engine/retriever_query_engine.py", line 210, in _aquery
+    response = await self._response_synthesizer.asynthesize(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/response_synthesizers/base.py", line 307, in asynthesize
+    response_str = await self.aget_response(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/response_synthesizers/compact_and_refine.py", line 23, in aget_response
+    return await super().aget_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/response_synthesizers/refine.py", line 366, in aget_response
+    response = await self._agive_response_single(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/response_synthesizers/refine.py", line 487, in _agive_response_single
+    structured_response = await program.acall(
+                          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/response_synthesizers/refine.py", line 101, in acall
+    answer = await self._llm.apredict(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/llms/llm.py", line 734, in apredict
+    chat_response = await self.achat(messages)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/llms/openai_like/base.py", line 204, in achat
+    return await super().achat(messages, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/core/llms/callbacks.py", line 76, in wrapped_async_llm_chat
+    f_return_val = await f(_self, messages, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/llms/openai/base.py", line 688, in achat
+    return await achat_fn(messages, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 193, in async_wrapped
+    return await copy(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 112, in __call__
+    do = await self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 157, in iter
+    result = await action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/_utils.py", line 111, in inner
+    return call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/__init__.py", line 393, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+                                     ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/tenacity/asyncio/__init__.py", line 116, in __call__
+    result = await fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/llama_index/llms/openai/base.py", line 743, in _achat
+    response = await aclient.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/openai/_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/miniconda3/envs/all-in-rag/lib/python3.12/site-packages/openai/_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Authentication Fails (governor)
+
